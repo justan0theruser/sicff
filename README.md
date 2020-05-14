@@ -1,7 +1,7 @@
 
 # SICFF
 
-Create Fama French Industry Variable from SIC Code.
+Converts SIC Code variable to a Fama French Industry variable.
 
 Install from Stata: `ssc install sicff`
 
