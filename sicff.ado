@@ -1,90 +1,61 @@
 
-* Program for turning SIC codes into Fama French 12 industries
+// Program for turning SIC codes into Fama French 12 industries
 
-* Takes a single input: the (numeric) variable identifying the SIC code
+// Takes a single input: the (numeric) variable identifying the SIC code
 
 program sicff
-	* Version
+	// Version
 	version 10.0
-	* Syntax
-	syntax varname(numeric), INDustry(integer) [ GENerate(name local)]
+
+	// Syntax
+	syntax varname(numeric), INDustry(integer) [ GENerate(name local) Longlabels]
 	
-	* If user does not specify a name for newvar, then set newvar to "ff_`industry'"
+	// If user does not specify a name for newvar, then set newvar to "ff_`industry'"
 	if "`generate'" == "" {
 		local generate = "ff_`industry'"
 	}
-	
-	* Create the variable
-	qui gen byte `generate' = .
-	
-	* Fama French 5 industry
-	if `industry' == 5 {
-		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0999
-		qui replace `generate' = 1 if `varlist' >= 2000 & `varlist' <= 2399
-		qui replace `generate' = 1 if `varlist' >= 2700 & `varlist' <= 2749
-		qui replace `generate' = 1 if `varlist' >= 2770 & `varlist' <= 2799
-		qui replace `generate' = 1 if `varlist' >= 3100 & `varlist' <= 3199
-		qui replace `generate' = 1 if `varlist' >= 3940 & `varlist' <= 3989
-		qui replace `generate' = 1 if `varlist' >= 2500 & `varlist' <= 2519
-		qui replace `generate' = 1 if `varlist' >= 2590 & `varlist' <= 2599
-		qui replace `generate' = 1 if `varlist' >= 3630 & `varlist' <= 3659
-		qui replace `generate' = 1 if `varlist' >= 3710 & `varlist' <= 3711
-		qui replace `generate' = 1 if `varlist' >= 3714 & `varlist' <= 3714
-		qui replace `generate' = 1 if `varlist' >= 3716 & `varlist' <= 3716
-		qui replace `generate' = 1 if `varlist' >= 3750 & `varlist' <= 3751
-		qui replace `generate' = 1 if `varlist' >= 3792 & `varlist' <= 3792
-		qui replace `generate' = 1 if `varlist' >= 3900 & `varlist' <= 3939
-		qui replace `generate' = 1 if `varlist' >= 3990 & `varlist' <= 3999
-		qui replace `generate' = 1 if `varlist' >= 5000 & `varlist' <= 5999
-		qui replace `generate' = 1 if `varlist' >= 7200 & `varlist' <= 7299
-		qui replace `generate' = 1 if `varlist' >= 7600 & `varlist' <= 7699
-		
-		qui replace `generate' = 2 if `varlist' >= 2520 & `varlist' <= 2589
-		qui replace `generate' = 2 if `varlist' >= 2600 & `varlist' <= 2699
-		qui replace `generate' = 2 if `varlist' >= 2750 & `varlist' <= 2769
-		qui replace `generate' = 2 if `varlist' >= 2800 & `varlist' <= 2829
-		qui replace `generate' = 2 if `varlist' >= 2840 & `varlist' <= 2899
-		qui replace `generate' = 2 if `varlist' >= 3000 & `varlist' <= 3099
-		qui replace `generate' = 2 if `varlist' >= 3200 & `varlist' <= 3569
-		qui replace `generate' = 2 if `varlist' >= 3580 & `varlist' <= 3621
-		qui replace `generate' = 2 if `varlist' >= 3623 & `varlist' <= 3629
-		qui replace `generate' = 2 if `varlist' >= 3700 & `varlist' <= 3709
-		qui replace `generate' = 2 if `varlist' >= 3712 & `varlist' <= 3713
-		qui replace `generate' = 2 if `varlist' >= 3715 & `varlist' <= 3715
-		qui replace `generate' = 2 if `varlist' >= 3717 & `varlist' <= 3749
-		qui replace `generate' = 2 if `varlist' >= 3752 & `varlist' <= 3791
-		qui replace `generate' = 2 if `varlist' >= 3793 & `varlist' <= 3799
-		qui replace `generate' = 2 if `varlist' >= 3860 & `varlist' <= 3899
-		qui replace `generate' = 2 if `varlist' >= 1200 & `varlist' <= 1399
-		qui replace `generate' = 2 if `varlist' >= 2900 & `varlist' <= 2999
-		qui replace `generate' = 2 if `varlist' >= 4900 & `varlist' <= 4949
-		
-		qui replace `generate' = 3 if `varlist' >= 3570 & `varlist' <= 3579
-		qui replace `generate' = 3 if `varlist' >= 3622 & `varlist' <= 3622
-		qui replace `generate' = 3 if `varlist' >= 3660 & `varlist' <= 3692
-		qui replace `generate' = 3 if `varlist' >= 3694 & `varlist' <= 3699
-		qui replace `generate' = 3 if `varlist' >= 3810 & `varlist' <= 3839
-		qui replace `generate' = 3 if `varlist' >= 7370 & `varlist' <= 7372
-		qui replace `generate' = 3 if `varlist' >= 7373 & `varlist' <= 7373
-		qui replace `generate' = 3 if `varlist' >= 7374 & `varlist' <= 7374
-		qui replace `generate' = 3 if `varlist' >= 7375 & `varlist' <= 7375
-		qui replace `generate' = 3 if `varlist' >= 7376 & `varlist' <= 7376
-		qui replace `generate' = 3 if `varlist' >= 7377 & `varlist' <= 7377
-		qui replace `generate' = 3 if `varlist' >= 7378 & `varlist' <= 7378
-		qui replace `generate' = 3 if `varlist' >= 7379 & `varlist' <= 7379
-		qui replace `generate' = 3 if `varlist' >= 7391 & `varlist' <= 7391
-		qui replace `generate' = 3 if `varlist' >= 8730 & `varlist' <= 8734
-		qui replace `generate' = 3 if `varlist' >= 4800 & `varlist' <= 4899
-		
-		qui replace `generate' = 4 if `varlist' >= 2830 & `varlist' <= 2839
-		qui replace `generate' = 4 if `varlist' >= 3693 & `varlist' <= 3693
-		qui replace `generate' = 4 if `varlist' >= 3840 & `varlist' <= 3859
-		qui replace `generate' = 4 if `varlist' >= 8000 & `varlist' <= 8099
-		
-		qui replace `generate' = 5 if `varlist' != . & `generate' == .
+
+	// Validate the SIC codes
+	capture assert inrange(sic, 1, 9999)
+	if _rc {
+		di as error "WARNING: SIC codes outside of 1 to 9999 will be set to missing."
 	}
 
-	* Fama French 10 industry
+	// Create the variable
+	qui gen byte `generate' = .
+	
+	// Fama French 5 industry
+	if `industry' == 5 {
+
+		// define label
+		if "`longlabels'" != "" {
+			// the long label
+			label define lbl_ff_5 1 "(1) Consumer Durables, Nondurables, Wholesale, Retail, and Some Services (Laundries, Repair Shops)"
+			label define lbl_ff_5 2 "(2) Manufacturing, Energy, and Utilities", add
+			label define lbl_ff_5 3 "(3) Business Equipment, Telephone and Television Transmission", add
+			label define lbl_ff_5 4 "(4) Healthcare, Medical Equipment, and Drugs", add
+			label define lbl_ff_5 5 "(5) Other -- Mines, Constr, BldMt, Trans, Hotels, Bus Serv, Entertainment, Finance", add
+		}
+		else {
+			// the short label
+			label define lbl_ff_5 1 "(1) Cnsmr" 2 "(2) Manuf" 3 "(3) HiTec" 4 "(4) Hlth" 5 "(5) Other"
+		}
+		label values `generate' lbl_ff_5
+
+		qui replace `generate' = 1 if inrange(`varlist', 0100, 0999) | inrange(`varlist', 2000, 2399) | inrange(`varlist', 2700, 2749) | inrange(`varlist', 2770, 2799) | inrange(`varlist', 3100, 3199) | inrange(`varlist', 3940, 3989) | inrange(`varlist', 2500, 2519) | inrange(`varlist', 2590, 2599) | inrange(`varlist', 3630, 3659) | inrange(`varlist', 3710, 3711) | inrange(`varlist', 3714, 3714) | inrange(`varlist', 3716, 3716) | inrange(`varlist', 3750, 3751) | inrange(`varlist', 3792, 3792) | inrange(`varlist', 3900, 3939) | inrange(`varlist', 3990, 3999) | inrange(`varlist', 5000, 5999) | inrange(`varlist', 7200, 7299) | inrange(`varlist', 7600, 7699)
+		
+		qui replace `generate' = 2 if inrange(`varlist', 2520, 2589) | inrange(`varlist', 2600, 2699) | inrange(`varlist', 2750, 2769) | inrange(`varlist', 2800, 2829) | inrange(`varlist', 2840, 2899) | inrange(`varlist', 3000, 3099) | inrange(`varlist', 3200, 3569) | inrange(`varlist', 3580, 3621) | inrange(`varlist', 3623, 3629) | inrange(`varlist', 3700, 3709) | inrange(`varlist', 3712, 3713) | inrange(`varlist', 3715, 3715) | inrange(`varlist', 3717, 3749) | inrange(`varlist', 3752, 3791) | inrange(`varlist', 3793, 3799) | inrange(`varlist', 3860, 3899) | inrange(`varlist', 1200, 1399) | inrange(`varlist', 2900, 2999) | inrange(`varlist', 4900, 4949)
+		
+		qui replace `generate' = 3 if inrange(`varlist', 3570, 3579) | inrange(`varlist', 3622, 3622) | inrange(`varlist', 3660, 3692) | inrange(`varlist', 3694, 3699) | inrange(`varlist', 3810, 3839) | inrange(`varlist', 7370, 7372) | inrange(`varlist', 7373, 7373) | inrange(`varlist', 7374, 7374) | inrange(`varlist', 7375, 7375) | inrange(`varlist', 7376, 7376) | inrange(`varlist', 7377, 7377) | inrange(`varlist', 7378, 7378) | inrange(`varlist', 7379, 7379) | inrange(`varlist', 7391, 7391) | inrange(`varlist', 8730, 8734) | inrange(`varlist', 4800, 4899)
+		
+		qui replace `generate' = 4 if inrange(`varlist', 2830, 2839) | inrange(`varlist', 3693, 3693) | inrange(`varlist', 3840, 3859) | inrange(`varlist', 8000, 8099)
+		
+		qui replace `generate' = 5 if `generate' == . & inrange(`varlist', 1, 9999)
+	}
+
+
+
+	// Fama French 10 industry
 	else if `industry' == 10 {
 		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0999
 		qui replace `generate' = 1 if `varlist' >= 2000 & `varlist' <= 2399
@@ -156,7 +127,9 @@ program sicff
 		qui replace `generate' = 10 if `varlist' != . & `generate' == .
 	}
 
-	* Fama French 12 industry
+
+
+	// Fama French 12 industry
 	else if `industry' == 12 {
 		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0999
 		qui replace `generate' = 1 if `varlist' >= 2000 & `varlist' <= 2399
@@ -220,8 +193,10 @@ program sicff
 		
 		qui replace `generate' = 12 if `varlist' != . & `generate' == .
 	}
-	
-	* Fama French 17 industry
+
+
+
+	// Fama French 17 industry
 	else if `industry' == 17 {
 		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0199
 		qui replace `generate' = 1 if `varlist' >= 0200 & `varlist' <= 0299
@@ -808,7 +783,9 @@ program sicff
 		qui replace `generate' = 17 if `varlist' >= 8920 & `varlist' <= 8999
 	}
 
-	* Fama French 30 industry
+
+
+	// Fama French 30 industry
 	else if `industry' == 30 {
 		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0199
 		qui replace `generate' = 1 if `varlist' >= 0200 & `varlist' <= 0299
@@ -1428,7 +1405,9 @@ program sicff
 		qui replace `generate' = 30 if `varlist' >= 4990 & `varlist' <= 4991
 	}
 
-	* Fama French 38 industry
+
+
+	// Fama French 38 industry
 	else if `industry' == 38 {
 		qui replace `generate' = 1 if `varlist' >= 0100 & `varlist' <= 0999
 		
@@ -1504,18 +1483,24 @@ program sicff
 		
 		qui replace `generate' = 37 if `varlist' >= 9000 & `varlist' <= 9999
 	}
-	
-	* Fama French 48 industry
+
+
+
+	// Fama French 48 industry
 	else if `industry' == 48 {
 		famafrench48 `generate' `varlist'
 	}
-	
-	* Fama French 49 industry
+
+
+
+	// Fama French 49 industry
 	else if `industry' == 49 {
 		famafrench49 `generate' `varlist'
 	}
-	
-	* Throw an error if industry is incorrect
+
+
+
+	// Throw an error if industry is incorrect
 	else {
 		drop `generate'
 		display as error "Industry option can only be 5, 10, 12, 17, 30, 38, 48, or 49."
@@ -1523,8 +1508,8 @@ program sicff
 	}
 end
 
-* Apparently you can't have too many lines in a given program.
-* So here are another 2 programs that the previous program can call.
+// Apparently you can't have too many lines in a given program.
+// So here are another 2 programs that the previous program can call.
 
 program famafrench48
 	qui replace `1' = 1 if `2' >= 0100 & `2' <= 0199
