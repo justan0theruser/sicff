@@ -1,7 +1,7 @@
 
 # SICFF
 
-Converts SIC Code variable to a Fama French Industry variable.
+Convert Standard Industrial Classification (SIC) Code variable to a Fama French Industry variable.
 
 Install from Stata: `ssc install sicff`
 
